@@ -5,3 +5,5 @@ PathPertDrug contains the basic R functions and sample data for running the Path
 
 library(devtools) 
 devtools::install_github('eshinesimida/PathPertDrug')
+
+# More about PathPertDrug
