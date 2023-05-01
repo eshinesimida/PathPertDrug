@@ -32,6 +32,7 @@ if (!"devtools" %in% as.data.frame(installed.packages())$Package)
   install.packages("devtools")
 devtools::install_github("eshinesimida/PathPertDrug")
 
+```
 ## Examples
 
 Below is a basic example that shows how to solve a common problem:
