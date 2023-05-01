@@ -11,5 +11,17 @@ The PathPertDrug is a novel tool used to identify the potentail candidate drugs 
 
 # Getting started
 
-Step 1. Install the package
-The dependency EnrichmentBrowser, KEGGdzPathwaysGEO,KEGGandMetacoreDzPathwaysGEO, and SPIA are unavailable on the CRAN but avaailable on BioConductor. So we need to install the BioManager manually.
+## Step 1. Install the package
+The dependency `EnrichmentBrowser`, `KEGGdzPathwaysGEO`, `KEGGandMetacoreDzPathwaysGEO` and `SPIA` are unavailable on the CRAN but available on [BioConductor](https://www.bioconductor.org/). So we need to install the BiocManager manually. 
+
+``` r
+if (!"BiocManager" %in% as.data.frame(installed.packages())$Package)
+  install.packages("BiocManager")
+BiocManager::install(c("EnrichmentBrowser", "KEGGdzPathwaysGEO","KEGGandMetacoreDzPathwaysGEO","SPIA"))
+```
+Then you can install the development version of PathPerDrug from [GitHub](https://github.com/) with:
+
+``` r
+if (!"devtools" %in% as.data.frame(installed.packages())$Package)
+  install.packages("devtools")
+devtools::install_github("eshinesimida/PathPertDrug")
