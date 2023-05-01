@@ -35,7 +35,7 @@ devtools::install_github("eshinesimida/PathPertDrug")
 ```
 ## Examples
 
-Below is a basic example that shows how to solve a common problem:
+Below is a basic example that shows how to obtain candidate drugs of colorecatal cancer:
 
 ``` r
 #Load require package
