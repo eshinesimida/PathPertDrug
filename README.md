@@ -95,6 +95,7 @@ drugs <- unique(drug_genes_MCF7_1$drug)
 
 pb <- txtProgressBar(min = 0, max = length(drugs), style = 3)
 
+#This process need several hours to get the results of all drug-disease 
 scores <- c()
 for(ii in 1:length(drugs)){
   setTxtProgressBar(pb, ii)
