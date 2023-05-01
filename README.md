@@ -7,3 +7,9 @@ library(devtools)
 devtools::install_github('eshinesimida/PathPertDrug')
 
 # More about PathPertDrug
+The PathPertDrug is a novel tool used to identify the potentail candidate drugs for cancers based on pathway perturbation.
+
+# Getting started
+
+Step 1. Install the package
+The dependency EnrichmentBrowser, KEGGdzPathwaysGEO,KEGGandMetacoreDzPathwaysGEO, and SPIA are unavailable on the CRAN but avaailable on BioConductor. So we need to install the BioManager manually.
