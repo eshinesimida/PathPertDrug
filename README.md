@@ -38,6 +38,7 @@ devtools::install_github("eshinesimida/PathPertDrug")
 Below is a basic example that shows how to solve a common problem:
 
 ``` r
+#Load require package
 library(PathPertDrug)
 library(EnrichmentBrowser)
 library(KEGGdzPathwaysGEO)
@@ -76,8 +77,45 @@ ALL_Colorectal <- rownames(tg)
 
 
 # pathway analysis based on combined evidence; # use nB=2000 or more for more accurate results
+# obtain disease-related significant pathways
 res=spia(de=DE_Colorectal,all=ALL_Colorectal,organism="hsa",nB=2000,plots=FALSE,beta=NULL,
          combine="fisher",verbose=TRUE)
+
+
+res <- res[res$pG <0.05,]
+res$importance <- -log(res$pG)
+
+#Load drug-induced differentially expressed genes
+
+drug_genes <- read.csv('drug_gene_all1.csv', header = T, stringsAsFactors = F)
+drug_genes_MCF7 <- drug_genes[which(drug_genes$cell_line == 'MCF7'),]
+drug_genes_MCF7_1 <- drug_genes_MCF7[drug_genes_MCF7$fdr<0.05,]
+ALL= unique(drug_genes$ENTREZID)
+drugs <- unique(drug_genes_MCF7_1$drug)
+
+pb <- txtProgressBar(min = 0, max = length(drugs), style = 3)
+
+scores <- c()
+for(ii in 1:length(drugs)){
+  setTxtProgressBar(pb, ii)
+  i1 <- drugs[ii]
+  cat('i=',i1,'\n')
+  drug_gene <- drug_genes_MCF7_1[which(drug_genes_MCF7_1$drug == i1),]
+  DE <- drug_gene$fc
+  names(DE) <- drug_gene$ENTREZID
+  res1=spia(de=DE,all=ALL,organism="hsa",nB=2000,plots=FALSE,beta=NULL,
+            combine="fisher",verbose=TRUE)
+  res_disease <- res[,c(2,11,13)]
+  res_disease$status_disease <- ifelse(res_disease$Status=='Activated',1,-1)
+  res_disease$status_disease1 <- res_disease$status_disease*res_disease$importance
+  res_drug <- res1[,c(2,11)]
+  res_drug$status_drug <- ifelse(res_drug$Status=='Activated',1,-1)
+  B <- merge(res_disease, res_drug, by='ID')
+  scores <- c(scores,sum(B$status_disease1*B$status_drug))
+}
+
+# the reverse scores of drug-disease
+dataframe_col3 <- data.frame(drugs=drugs, scores = scores)
 ```
 
 You can enable the multicore feature to utilize the multicore advantages. Here is the benchmark. 
