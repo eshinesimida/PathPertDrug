@@ -8,7 +8,16 @@ The PathPertDrug is a novel tool used to identify the potentail candidate drugs 
 
 # Getting started
 
-## Step 1. Install the package
+## Step 1. Pre run the method for installation
+
+You should ensure that you have the necessary system dependencies configured.
+
+For Windows (8.1 / 10 / 11): Rtools should be installed to the system path.
+
+The latest base R is recommended. The compatibility of the earlier version (v4.0.x) is under evaluation.
+We use R version is [64-bit] d:\Program Files\R\R-4.1.2
+
+## Step 2. Install the package
 The dependency `EnrichmentBrowser`, `KEGGdzPathwaysGEO`, `KEGGandMetacoreDzPathwaysGEO` and `SPIA` are unavailable on the CRAN but available on [BioConductor](https://www.bioconductor.org/). So we need to install the BiocManager manually. 
 
 ``` r
@@ -23,7 +32,7 @@ if (!"devtools" %in% as.data.frame(installed.packages())$Package)
   install.packages("devtools")
 devtools::install_github("eshinesimida/PathPertDrug")
 
-### Examples
+## Examples
 
 Below is a basic example that shows how to solve a common problem:
 
@@ -37,7 +46,7 @@ data(example_ppi)
 
 # Perform a simple PathPertDrug analysis
 
-result <- DTSEA(
+result <- RS(
     network = example_ppi,
     disease = example_disease_list,
     drugs = example_drug_target_list
