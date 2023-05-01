@@ -118,6 +118,3 @@ for(ii in 1:length(drugs)){
 dataframe_col3 <- data.frame(drugs=drugs, scores = scores)
 ```
 
-You can enable the multicore feature to utilize the multicore advantages. Here is the benchmark. 
-
-``` r
