@@ -39,19 +39,45 @@ Below is a basic example that shows how to solve a common problem:
 
 ``` r
 library(PathPertDrug)
+library(EnrichmentBrowser)
+library(KEGGdzPathwaysGEO)
+library(KEGGandMetacoreDzPathwaysGEO)
+library(SPIA)
 
-# Load the data
-data(example_disease_list)
-data(example_drug_target_list)
-data(example_ppi)
 
-# Perform a simple PathPertDrug analysis
+#Load the data
+#--------1.GSE8671 differnential analysis--
+data("GSE8671")
+exprs_all <- exprs(GSE8671)
+# Add the gene symbol
+all.eset <- probe2gene(GSE8671)
+before.norm <- assay(all.eset)
+# Gene normalization
+all.eset <- normalize(all.eset, norm.method="quantile")
+after.norm <- assay(all.eset)
 
-result <- RS(
-    network = example_ppi,
-    disease = example_disease_list,
-    drugs = example_drug_target_list
-)
+exprs_all1 <- data.frame(after.norm)
+table(colData(all.eset)$Group)
+colData(all.eset)$GROUP <- ifelse(colData(all.eset)$Group == "d", 1, 0)
+normal <- length(which(colData(all.eset)$GROUP == '0'))
+tumor <- length(which(colData(all.eset)$GROUP == '1'))
+# Get the differential expression genes in limmar package
+all.eset <- deAna(all.eset, padj.method="BH")
+all_de <- rowData(all.eset, use.names=TRUE)
+all_de <- data.frame(all_de)
+tg <- all_de[order(all_de$ADJ.PVAL, decreasing = FALSE),]
+
+tg3 <- all_de[all_de$ADJ.PVAL<0.05,]
+
+
+DE_Colorectal = tg3$FC
+names(DE_Colorectal)<-rownames(tg3)
+ALL_Colorectal <- rownames(tg)
+
+
+# pathway analysis based on combined evidence; # use nB=2000 or more for more accurate results
+res=spia(de=DE_Colorectal,all=ALL_Colorectal,organism="hsa",nB=2000,plots=FALSE,beta=NULL,
+         combine="fisher",verbose=TRUE)
 ```
 
 You can enable the multicore feature to utilize the multicore advantages. Here is the benchmark. 
