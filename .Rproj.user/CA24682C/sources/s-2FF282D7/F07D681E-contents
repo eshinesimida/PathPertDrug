@@ -15,6 +15,7 @@ get_pathway_disease <- function(de, all){
            combine="fisher",verbose=TRUE)
   res <- res[res$pG <0.05,]
   res$importance <- -log(res$pG)
+  res
 
 }
 
