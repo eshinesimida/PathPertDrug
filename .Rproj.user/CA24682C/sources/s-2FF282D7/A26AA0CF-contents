@@ -1,29 +1,3 @@
-#function of reverse function
-#' calculate the drug-disease reverse score based on pathway perturbation
-#'
-#' @param res: pathway analysis based on disease-related genes
-#' @param DE_Drug: Differentially expressed genes by drug
-#' @param ALL_Drug: all genes
-#'
-#' @return: reverse score
-#' @export
-#'
-#' @examples
-RS <- function(res, DE_Drug, ALL_Drug){
-  #drug-perturbed genes enrichment analysis
-  res1=spia(de=DE_Drug,all=ALL_Drug,organism="hsa",nB=2000,plots=FALSE,beta=NULL,combine="fisher",verbose=TRUE)
-  res_disease <- res[,c(2,11)]
-  res_disease$status_disease <- ifelse(res_disease$Status=='Activated',1,-1)
-  res_disease$status_disease1 <- res_disease$status_disease*res_disease$importance
-
-  res_drug <- res1[,c(2,11)]
-  res_drug$status_drug <- ifelse(res_drug$Status=='Activated',1,-1)
-  B <- merge(res_disease, res_drug, by='ID')
-  #calculate reverse score
-  score <- sum(B$status_disease1*B$status_drug)
-  score
-}
-
 
 library(KEGGdzPathwaysGEO)
 library(KEGGandMetacoreDzPathwaysGEO)

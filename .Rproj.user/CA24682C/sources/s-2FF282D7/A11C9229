@@ -3,7 +3,7 @@
     "path": "~/GitHub/PathPertDrug/R/demo1.R",
     "project_path": "R/demo1.R",
     "type": "r_source",
-    "hash": "0",
+    "hash": "160954899",
     "contents": "",
     "dirty": false,
     "created": 1682646757356.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "100,30",
-        "scrollLine": "88"
+        "cursorPosition": "3,0",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1682907587,
+    "lastKnownWriteTime": 1682994792,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1682907587301,
+    "last_content_update": 1682994792170,
     "read_only": false,
     "read_only_alternatives": []
 }

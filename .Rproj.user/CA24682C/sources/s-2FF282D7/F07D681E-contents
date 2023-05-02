@@ -4,10 +4,11 @@
 #' @param de,FC of differentially expressed genes
 #' @param all, all gene ID
 #'
-#' @return
+#' @return pathway analysis of DEGs
 #' @export
 #'
 #' @examples
+#' res <- get_pathway_disease(de=DE_Colorectal,all=ALL_Colorectal)
 get_pathway_disease <- function(de, all){
   library(SPIA)
   # pathway analysis based on combined evidence; # use nB=2000 or more for more accurate results
